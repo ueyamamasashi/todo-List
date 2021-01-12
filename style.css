@@ -1,0 +1,23 @@
+* {
+  margin: 0;
+  padding: 0; }
+
+body .radio {
+  margin: 5% 0; }
+body #table {
+  margin-bottom: 10%;
+  width: 300px; }
+
+#tbody tr th:nth-child(1) {
+  width: 1%; }
+
+#tbody tr th:nth-child(2) {
+  width: 5%; }
+
+#tbody tr th:nth-child(3) {
+  width: 5%; }
+
+#tbody tr th:nth-child(3) button {
+  margin-left: 2%; }
+
+/*# sourceMappingURL=style.css.map */

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="x-ua-compatible" content="ie=edge">
+<title>todo app</title>
+<meta name="description" content="todo appです">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="format-detection" content="telephone=no">
+<link rel="stylesheet" href="style.css">
+<script type="text/javascript" src="script.js" defer></script>
+</head>
+    <body>
+        <header class="header">
+            <h1 class="title">Todo リスト</h1>
+        </header>
+        <div class="radio">
+            <input type="radio">すべて</input>
+            <input type="radio">作業中</input>
+            <input type="radio">完了</input>
+        </div>
+        <table id="table">
+            <tbody id="tbody">
+            <tr>
+                <th>ID</th>
+                <th>コメント</th>
+                <th>状態</th>
+            </tr>
+            </tbody>
+        </table>
+        <h2>新規タスクの追加</h2>
+        <form>
+            <input id="addValue" type="text"></input>
+            <button id="trigger" type="button">追加</button>
+        </form>
+        
+    </body>
+</html>
