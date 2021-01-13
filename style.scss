@@ -10,6 +10,7 @@ body {
     #table {
         margin-bottom: 10%;
         width: 300px;
+        
     }
 }
 #tbody tr th:nth-child(1) {
@@ -21,6 +22,6 @@ body {
 #tbody tr th:nth-child(3) {
     width: 5%;
 }
-#tbody tr th:nth-child(3) button {
-    margin-left: 2%;
+#tbody tr td:nth-child(3) button {
+    margin-left: 5%;
 }
