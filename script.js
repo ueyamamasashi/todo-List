@@ -6,27 +6,30 @@ const tBody = document.getElementById("tbody");
 let counter = 0;
 //task add
 const addTask = (task) => { 
-    const params = {
-        'No'       : counter,
-        'content'  : task,
-        'condition': conditionBtn(),
-        'delete'   : deleteBtn()
+    const todo = {
+        'id': counter,
+        'content': task,
+        'condition': '作業中', //いずれboolenにする
     }
     counter++;
-    return params;
+    return todo;
 }
 //todo表示
-const displayTask = (params) => {
+const displayTask = (todo) => {
     const newTable = document.createElement('tr');
     const newId = document.createElement('td');
     const newTask = document.createElement('td');
     const newCondition = document.createElement('td');
-    newId.innerText = params['No'];
-    newTask.innerText = params['content'];
+    newId.innerText = todo['id'];
+    newTask.innerText = todo['content'];
     newTable.appendChild(newId);
     newTable.appendChild(newTask);
-    newCondition.appendChild(params['condition']);
-    newCondition.appendChild(params['delete']);
+    const newBtn = conditionBtn();
+    newBtn.innerText = todo['condition'];
+    newCondition.appendChild(newBtn);
+    const newDeleteBtn = deleteBtn();
+    newDeleteBtn.innerText = '削除';
+    newCondition.appendChild(newDeleteBtn);
     newTable.appendChild(newCondition);
     tBody.appendChild(newTable);
 }
@@ -34,20 +37,18 @@ const displayTask = (params) => {
 //conditionBtn
 const conditionBtn = () => {
     const newBtn = document.createElement('button');
-    newBtn.innerText = '作業中'; //soon boolen
     return newBtn;
 }
 
 //deleteBtn
 const deleteBtn = () => {
     const newDeleteBtn = document.createElement('button');    
-    newDeleteBtn.innerText = '削除';
     return newDeleteBtn;
 }
 
 trigger.addEventListener('click', (event) => {
     const task = addValue.value;
-    const params = addTask(task);
-    displayTask(params);
+    const todo = addTask(task);
+    displayTask(todo);
     addValue.value = '';
 });
