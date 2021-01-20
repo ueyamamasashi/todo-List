@@ -27,7 +27,7 @@ const displayTask = (todo) => {
     newTask.innerText = todo['content'];
     newTable.appendChild(newId);
     newTable.appendChild(newTask);
-    const newBtn = conditionBtn();
+    const newBtn = conditionBtn(counter);
     newBtn.innerText = todo['condition'];
     newCondition.appendChild(newBtn);
     const newDeleteBtn = deleteBtn();
@@ -52,14 +52,25 @@ const displayTask = (todo) => {
         console.log(afterDeleteTr);
         afterDeletetasks(afterDeleteTr);        
     }
+    //conditionを作業中と完了に切り替える
+    newBtn.onclick = function(event){
+        
+        if (newBtn.innerText==='作業中'){
+            newBtn.innerText = '完了';
+        } else if (newBtn.innerText==='完了') {
+            newBtn.innerText = '作業中';
+        }
+    }
 
     counter++;
    
 }
 
 //conditionBtn
-const conditionBtn = () => {
+const conditionBtn = (counter) => {
     const newBtn = document.createElement('button');
+    //eventListener作成
+    newBtn.setAttribute('id', `condition-${counter}`);
     return newBtn;
 }
 
