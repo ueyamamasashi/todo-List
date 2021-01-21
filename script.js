@@ -41,6 +41,10 @@ const displayTask = (todo) => {
     newTable.appendChild(newCondition);
     newTable.setAttribute('id', `table-${counter}`);
     tBody.appendChild(newTable);
+    //完了ボタン押下時に新しいtaskは非表示
+    if (radioInput[2].checked){
+        newTable.style.display = 'none';
+    }
     //以下、別関数が良いとは思うが、関数の作り方が思い浮かばない
     //また当初'newDeleteBtn.setAttribute('id', `delete-${counter}`);'直下に以下を置いていたためappendChildが動かず、idが変わらなかった
     newDeleteBtn.onclick = function(event) {
