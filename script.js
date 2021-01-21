@@ -3,6 +3,9 @@
 const trigger = document.getElementById("trigger");
 const addValue = document.getElementById("addValue");
 const tBody = document.getElementById("tbody");
+const radioId = document.getElementById("radio");
+const radioInput = document.getElementsByName("radio");
+
 
 //taskのトータルを取るために敢えてcounterを付け、テーブルidにする
 let counter = 0;
@@ -60,10 +63,9 @@ const displayTask = (todo) => {
         } else if (newBtn.innerText==='完了') {
             newBtn.innerText = '作業中';
         }
-    }
-
+    };
+    radioBtnChanged();
     counter++;
-   
 }
 
 //conditionBtn
@@ -99,8 +101,79 @@ const afterDeletetasks = (afterDeleteTr) => {
         //console.log('trの長さ' + afterDeleteTr.length);
         const j = i-1;
         afterDeleteTr[i].childNodes[0].outerHTML = `<td>${j}</td>`;
-        //afterDeleteTr[i].lastChild.id = `delete-${j}`;
     }
 }
+
+//ラジオボタン操作
+const radioBtnChanged = () => {
+    //すべて
+    radioInput[0].onclick = function(evt){
+        console.log(radioInput[0].checked);
+        const allTr = document.querySelectorAll('tr');  
+        console.log(allTr);
+        Array.from(allTr).map(function(tr){
+            tr.style.display = 'table-row';
+            //tBody.appendChild(tr); 
+        });
+    };
+    //作業中
+    radioInput[1].onclick = function(){
+        console.log(radioInput[1].checked);
+        const allTr = document.querySelectorAll('tr');
+      
+        allTr[0].style.display = 'table-row';
+
+        Array.from(allTr).map(function(tr){
+            tr.style.display = 'table-row';
+            //console.log(tr)
+            const getChild = tr.lastElementChild;
+            //console.log('a'+getChild);
+            const getName = getChild.localName;
+            //console.log('b'+getName);
+            if (getName === "td"){               
+                const lastTd = tr.childNodes[2];
+                const lastButton = lastTd.childNodes[0].innerText;
+                //const lastButton = lastTd.lastChild;
+                console.log('lastTd::'+lastButton)
+                if (lastButton ==='作業中') {
+                    //tBody.appendChild(tr); 
+                } else {
+                    tr.style.display = 'none';
+                }
+            }            
+        }); 
+    };
+    //完了
+    radioInput[2].onclick = function(){
+        console.log(radioInput[2].checked);
+        const allTr = document.querySelectorAll('tr');
+        //thだけは先にアップ
+        allTr[0].style.display = 'table-row';
+        //ここから作業中・完了を切り分け
+        Array.from(allTr).map(function(tr){
+            tr.style.display = 'table-row';
+            console.log(tr)
+            const getChild = tr.lastElementChild;
+            console.log('a'+getChild);
+            const getName = getChild.localName;
+            console.log('b'+getName);
+            if (getName === "td"){               
+                const lastTd = tr.childNodes[2];
+                const lastButton = lastTd.childNodes[0].innerText;
+
+                //const lastButton = lastTd.lastChild;
+                console.log('lastTd::'+lastButton)
+                if (lastButton ==='完了') {
+                    //tBody.appendChild(tr); 
+                } else {
+                    tr.style.display = 'none';
+                }
+            }            
+        }); 
+    };
+
+}
+ 
+
 
 
