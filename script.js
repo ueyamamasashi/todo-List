@@ -68,7 +68,7 @@ const displayTask = (todo) => {
             newBtn.innerText = '作業中';
         }
     };
-    changedRadioBtn();
+    changedRadioBtn(newBtn);
     counter++;
 }
 
@@ -108,7 +108,7 @@ const afterDeletetasks = (afterDeleteTr) => {
 }
 
 //ラジオボタン操作
-const changedRadioBtn = () => {
+const changedRadioBtn = (newBtn) => {
     //すべて
     radioInput[0].onclick = function(evt){
         console.log(radioInput[0].checked);
@@ -120,9 +120,15 @@ const changedRadioBtn = () => {
     };
     //作業中
     radioInput[1].onclick = function(){
-        console.log(radioInput[1].checked);
+        newBtn.onclick = function(event){
+            if (newBtn.innerText==='作業中'){
+                newBtn.innerText = '完了';
+            } else if (newBtn.innerText==='完了') {
+                newBtn.innerText = '作業中';
+            }
+        };
         const allTr = document.querySelectorAll('tr');
-      
+      　
         allTr[0].style.display = 'table-row';
 
         Array.from(allTr).map(function(tr){
@@ -143,7 +149,13 @@ const changedRadioBtn = () => {
     };
     //完了
     radioInput[2].onclick = function(){
-        console.log(radioInput[2].checked);
+        newBtn.onclick = function(event){
+            if (newBtn.innerText==='作業中'){
+                newBtn.innerText = '完了';
+            } else if (newBtn.innerText==='完了') {
+                newBtn.innerText = '作業中';
+            }
+        };
         const allTr = document.querySelectorAll('tr');
         //thだけは先にアップ
         allTr[0].style.display = 'table-row';
