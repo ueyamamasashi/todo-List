@@ -18,6 +18,7 @@ body #table {
   width: 5%; }
 
 #tbody tr td:nth-child(3) button {
-  margin-left: 2%; }
+  margin-left: 5%;
+  width: 40%; }
 
 /*# sourceMappingURL=style.css.map */

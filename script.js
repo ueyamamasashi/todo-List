@@ -68,7 +68,7 @@ const displayTask = (todo) => {
             newBtn.innerText = '作業中';
         }
     };
-    radioBtnChanged();
+    changedRadioBtn();
     counter++;
 }
 
@@ -102,14 +102,13 @@ trigger.addEventListener('click', (event) => {
 //削除後のテーブルを再規定
 const afterDeletetasks = (afterDeleteTr) => {
     for (let i=0; i<=afterDeleteTr.length-1; i++) {
-        //console.log('trの長さ' + afterDeleteTr.length);
         const j = i-1;
         afterDeleteTr[i].childNodes[0].outerHTML = `<td>${j}</td>`;
     }
 }
 
 //ラジオボタン操作
-const radioBtnChanged = () => {
+const changedRadioBtn = () => {
     //すべて
     radioInput[0].onclick = function(evt){
         console.log(radioInput[0].checked);
@@ -117,7 +116,6 @@ const radioBtnChanged = () => {
         console.log(allTr);
         Array.from(allTr).map(function(tr){
             tr.style.display = 'table-row';
-            //tBody.appendChild(tr); 
         });
     };
     //作業中
@@ -129,18 +127,14 @@ const radioBtnChanged = () => {
 
         Array.from(allTr).map(function(tr){
             tr.style.display = 'table-row';
-            //console.log(tr)
             const getChild = tr.lastElementChild;
-            //console.log('a'+getChild);
             const getName = getChild.localName;
-            //console.log('b'+getName);
             if (getName === "td"){               
                 const lastTd = tr.childNodes[2];
                 const lastButton = lastTd.childNodes[0].innerText;
-                //const lastButton = lastTd.lastChild;
                 console.log('lastTd::'+lastButton)
                 if (lastButton ==='作業中') {
-                    //tBody.appendChild(tr); 
+                    return; 
                 } else {
                     tr.style.display = 'none';
                 }
