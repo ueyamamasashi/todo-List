@@ -59,16 +59,26 @@ const displayTask = (todo) => {
         console.log(afterDeleteTr);
         afterDeletetasks(afterDeleteTr);        
     }
+    
     //conditionを作業中と完了に切り替える
+   
     newBtn.onclick = function(event){
-        
-        if (newBtn.innerText==='作業中'){
-            newBtn.innerText = '完了';
-        } else if (newBtn.innerText==='完了') {
-            newBtn.innerText = '作業中';
+        if (radioInput[1].checked || radioInput[2].checked){
+            if (newBtn.innerText==='作業中'){
+                newBtn.innerText = '完了';
+                changedRadioBtn(newBtn);
+                const tableId = document.getElementById(newTable.id);
+                tableId.style.display = 'none';
+                // console.log(newTable);
+                // console.log(event);
+            } else if (newBtn.innerText==='完了') {
+                newBtn.innerText = '作業中';
+                changedRadioBtn(newBtn);
+                const tableId = document.getElementById(newTable.id);
+                tableId.style.display = 'none';
+            }
         }
     };
-    changedRadioBtn(newBtn);
     counter++;
 }
 
@@ -111,7 +121,6 @@ const afterDeletetasks = (afterDeleteTr) => {
 const changedRadioBtn = (newBtn) => {
     //すべて
     radioInput[0].onclick = function(evt){
-        console.log(radioInput[0].checked);
         const allTr = document.querySelectorAll('tr');  
         console.log(allTr);
         Array.from(allTr).map(function(tr){
@@ -120,17 +129,9 @@ const changedRadioBtn = (newBtn) => {
     };
     //作業中
     radioInput[1].onclick = function(){
-        newBtn.onclick = function(event){
-            if (newBtn.innerText==='作業中'){
-                newBtn.innerText = '完了';
-            } else if (newBtn.innerText==='完了') {
-                newBtn.innerText = '作業中';
-            }
-        };
-        const allTr = document.querySelectorAll('tr');
-      　
+        const allTr = document.querySelectorAll('tr');    
         allTr[0].style.display = 'table-row';
-
+        
         Array.from(allTr).map(function(tr){
             tr.style.display = 'table-row';
             const getChild = tr.lastElementChild;
@@ -144,22 +145,16 @@ const changedRadioBtn = (newBtn) => {
                 } else {
                     tr.style.display = 'none';
                 }
-            }            
-        }); 
-    };
+            }               
+        });
+        
+    };  
     //完了
     radioInput[2].onclick = function(){
-        newBtn.onclick = function(event){
-            if (newBtn.innerText==='作業中'){
-                newBtn.innerText = '完了';
-            } else if (newBtn.innerText==='完了') {
-                newBtn.innerText = '作業中';
-            }
-        };
         const allTr = document.querySelectorAll('tr');
         //thだけは先にアップ
         allTr[0].style.display = 'table-row';
-        //ここから作業中・完了を切り分け
+        //ここから作業中・完了を切り分け    
         Array.from(allTr).map(function(tr){
             tr.style.display = 'table-row';
             console.log(tr)
@@ -179,7 +174,8 @@ const changedRadioBtn = (newBtn) => {
                     tr.style.display = 'none';
                 }
             }            
-        }); 
+        });
+        
     };
 
 }
