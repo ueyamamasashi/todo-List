@@ -63,7 +63,7 @@ const displayTask = (todo) => {
     //conditionを作業中と完了に切り替える
    
     newBtn.onclick = function(event){
-        if (radioInput[1].checked || radioInput[2].checked){
+        if (radioInput[0].checked || radioInput[1].checked || radioInput[2].checked){
             if (newBtn.innerText==='作業中'){
                 newBtn.innerText = '完了';
                 changedRadioBtn(newBtn);
