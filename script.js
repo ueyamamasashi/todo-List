@@ -3,6 +3,9 @@
 const trigger = document.getElementById("trigger");
 const addValue = document.getElementById("addValue");
 const tBody = document.getElementById("tbody");
+const radioId = document.getElementById("radio");
+const radioInput = document.getElementsByName("radio");
+
 
 //taskのトータルを取るために敢えてcounterを付け、テーブルidにする
 let counter = 0;
@@ -38,6 +41,10 @@ const displayTask = (todo) => {
     newTable.appendChild(newCondition);
     newTable.setAttribute('id', `table-${counter}`);
     tBody.appendChild(newTable);
+    //完了ボタン押下時に新しいtaskは非表示
+    if (radioInput[2].checked){
+        newTable.style.display = 'none';
+    }
     //以下、別関数が良いとは思うが、関数の作り方が思い浮かばない
     //また当初'newDeleteBtn.setAttribute('id', `delete-${counter}`);'直下に以下を置いていたためappendChildが動かず、idが変わらなかった
     newDeleteBtn.onclick = function(event) {
@@ -52,18 +59,27 @@ const displayTask = (todo) => {
         console.log(afterDeleteTr);
         afterDeletetasks(afterDeleteTr);        
     }
+    
     //conditionを作業中と完了に切り替える
-    newBtn.onclick = function(event){
-        
-        if (newBtn.innerText==='作業中'){
-            newBtn.innerText = '完了';
-        } else if (newBtn.innerText==='完了') {
-            newBtn.innerText = '作業中';
-        }
-    }
-
-    counter++;
    
+    newBtn.onclick = function(event){
+        if (radioInput[0].checked || radioInput[1].checked || radioInput[2].checked){
+            if (newBtn.innerText==='作業中'){
+                newBtn.innerText = '完了';
+                changedRadioBtn(newBtn);
+                const tableId = document.getElementById(newTable.id);
+                tableId.style.display = 'none';
+                // console.log(newTable);
+                // console.log(event);
+            } else if (newBtn.innerText==='完了') {
+                newBtn.innerText = '作業中';
+                changedRadioBtn(newBtn);
+                const tableId = document.getElementById(newTable.id);
+                tableId.style.display = 'none';
+            }
+        }
+    };
+    counter++;
 }
 
 //conditionBtn
@@ -96,11 +112,74 @@ trigger.addEventListener('click', (event) => {
 //削除後のテーブルを再規定
 const afterDeletetasks = (afterDeleteTr) => {
     for (let i=0; i<=afterDeleteTr.length-1; i++) {
-        //console.log('trの長さ' + afterDeleteTr.length);
         const j = i-1;
         afterDeleteTr[i].childNodes[0].outerHTML = `<td>${j}</td>`;
-        //afterDeleteTr[i].lastChild.id = `delete-${j}`;
     }
 }
+
+//ラジオボタン操作
+const changedRadioBtn = (newBtn) => {
+    //すべて
+    radioInput[0].onclick = function(evt){
+        const allTr = document.querySelectorAll('tr');  
+        console.log(allTr);
+        Array.from(allTr).map(function(tr){
+            tr.style.display = 'table-row';
+        });
+    };
+    //作業中
+    radioInput[1].onclick = function(){
+        const allTr = document.querySelectorAll('tr');    
+        allTr[0].style.display = 'table-row';
+        
+        Array.from(allTr).map(function(tr){
+            tr.style.display = 'table-row';
+            const getChild = tr.lastElementChild;
+            const getName = getChild.localName;
+            if (getName === "td"){               
+                const lastTd = tr.childNodes[2];
+                const lastButton = lastTd.childNodes[0].innerText;
+                console.log('lastTd::'+lastButton)
+                if (lastButton ==='作業中') {
+                    return; 
+                } else {
+                    tr.style.display = 'none';
+                }
+            }               
+        });
+        
+    };  
+    //完了
+    radioInput[2].onclick = function(){
+        const allTr = document.querySelectorAll('tr');
+        //thだけは先にアップ
+        allTr[0].style.display = 'table-row';
+        //ここから作業中・完了を切り分け    
+        Array.from(allTr).map(function(tr){
+            tr.style.display = 'table-row';
+            console.log(tr)
+            const getChild = tr.lastElementChild;
+            console.log('a'+getChild);
+            const getName = getChild.localName;
+            console.log('b'+getName);
+            if (getName === "td"){               
+                const lastTd = tr.childNodes[2];
+                const lastButton = lastTd.childNodes[0].innerText;
+
+                //const lastButton = lastTd.lastChild;
+                console.log('lastTd::'+lastButton)
+                if (lastButton ==='完了') {
+                    //tBody.appendChild(tr); 
+                } else {
+                    tr.style.display = 'none';
+                }
+            }            
+        });
+        
+    };
+
+}
+ 
+
 
 
